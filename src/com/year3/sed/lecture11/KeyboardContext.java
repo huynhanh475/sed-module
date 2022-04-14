@@ -23,6 +23,10 @@ public class KeyboardContext {
     }
 
     public void hold(Key key) {
-        state.tap(key);
+        state.hold(key);
+    }
+
+    public void unhold(Key key) {
+        state.unhold(key);
     }
 }

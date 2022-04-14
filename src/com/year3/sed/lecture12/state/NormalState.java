@@ -1,7 +1,7 @@
-package com.year3.sed.lecture11.state;
+package com.year3.sed.lecture12.state;
 
-import com.year3.sed.lecture11.Key;
-import com.year3.sed.lecture11.KeyboardContext;
+import com.year3.sed.lecture12.Key;
+import com.year3.sed.lecture12.KeyboardContext;
 
 public class NormalState implements KeyboardState {
     private KeyboardContext context;
@@ -21,6 +21,12 @@ public class NormalState implements KeyboardState {
                 break;
             case SHIFT:
                 break;
+            case FN:
+                break;
+            case F11:
+                break;
+            case F12:
+                break;
             default:
                 System.out.println("Key undefined");
         }
@@ -36,6 +42,13 @@ public class NormalState implements KeyboardState {
                 break;
             case SHIFT:
                 context.setState(new ShiftState(context));
+                break;
+            case FN:
+                context.setState(new FnState(context));
+                break;
+            case F11:
+                break;
+            case F12:
                 break;
             default:
                 System.out.println("Key undefined");

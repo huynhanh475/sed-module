@@ -1,15 +1,11 @@
-package com.year3.sed.lecture11.state;
+package com.year3.sed.lecture12.state;
 
-import com.year3.sed.lecture11.Key;
-import com.year3.sed.lecture11.KeyboardContext;
+import com.year3.sed.lecture12.Key;
+import com.year3.sed.lecture12.KeyboardContext;
 
-public class OnCapitalState implements KeyboardState{
-
+public class ShiftCapsState implements KeyboardState{
     private KeyboardContext context;
-    private boolean isCapsLockOn;
-    private boolean isShiftHold;
-
-    OnCapitalState(KeyboardContext context, boolean withCapsLock, boolean withShiftHold){
+    ShiftCapsState(KeyboardContext context) {
         this.context = context;
     }
 
@@ -17,18 +13,21 @@ public class OnCapitalState implements KeyboardState{
     public void tap(Key key) {
         switch (key) {
             case Q:
-                System.out.println("Q");
+                System.out.println("q");
                 break;
             case CAPS_LOCK:
-                isCapsLockOn = !isCapsLockOn;
+                context.setState(new ShiftState(context));
                 break;
             case SHIFT:
                 break;
+            case FN:
+                break;
+            case F11:
+                break;
+            case F12:
+                break;
             default:
                 System.out.println("Key undefined");
-        }
-        if (!isCapsLockOn && !isShiftHold) {
-            context.setState(new NormalState(context));
         }
     }
 
@@ -36,18 +35,21 @@ public class OnCapitalState implements KeyboardState{
     public void hold(Key key) {
         switch (key) {
             case Q:
-                System.out.println("Print a long string of letter 'Q'");
+                System.out.println("Print a long string of 'q'");
                 break;
             case CAPS_LOCK:
                 break;
             case SHIFT:
-                isShiftHold = true;
+                break;
+            case FN:
+                context.setState(new ShiftCapsFnState(context));
+                break;
+            case F11:
+                break;
+            case F12:
                 break;
             default:
                 System.out.println("Key undefined");
-        }
-        if (!isCapsLockOn && !isShiftHold) {
-            context.setState(new NormalState(context));
         }
     }
 
@@ -59,13 +61,16 @@ public class OnCapitalState implements KeyboardState{
             case CAPS_LOCK:
                 break;
             case SHIFT:
-                isShiftHold = false;
+                context.setState(new CapsLockState(context));
+                break;
+            case FN:
+                break;
+            case F11:
+                break;
+            case F12:
                 break;
             default:
                 System.out.println("Key undefined");
-        }
-        if (!isCapsLockOn && !isShiftHold) {
-            context.setState(new NormalState(context));
         }
     }
 }
